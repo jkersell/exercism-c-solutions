@@ -6,6 +6,9 @@
 
 
 char *hey_bob(char *greeting) {
+    if (!greeting || *greeting == '\0')
+        return "Fine. Be that way!";
+
     bool whitespace_only = true;
     bool upper_case = false;
     bool lower_case = false;
