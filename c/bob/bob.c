@@ -18,29 +18,25 @@ char *hey_bob(char *greeting) {
         lower_case |= islower(c);
         // Once we've seen a question mark, the string should only be considered
         // a question if the only remaining characters are whitespace.
-        if (question && !isspace(c)) {
+        if (question && !isspace(c))
             question = false;
-        }
+
         question |= c == '?';
     }
 
 
-    if (whitespace_only) {
+    if (whitespace_only)
         return "Fine. Be that way!";
-    }
 
     bool yelling = upper_case && !lower_case;
-    if (question && !yelling) {
+    if (question && !yelling)
         return "Sure.";
-    }
 
-    if (question && yelling) {
+    if (question && yelling)
         return "Calm down, I know what I'm doing!";
-    }
 
-    if (yelling) {
+    if (yelling)
         return "Whoa, chill out!";
-    }
 
     return "Whatever.";
 }
