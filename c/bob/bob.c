@@ -16,15 +16,15 @@ char *hey_bob(char *greeting) {
 
     for (size_t i = 0; greeting[i] != '\0'; i++) {
         char c = greeting[i];
-        whitespace_only &= isspace(c) > 0;
-        upper_case |= isupper(c);
-        lower_case |= islower(c);
+        whitespace_only = whitespace_only && isspace(c);
+        upper_case = upper_case || isupper(c);
+        lower_case = lower_case || islower(c);
         // Once we've seen a question mark, the string should only be considered
         // a question if the only remaining characters are whitespace.
         if (question && !isspace(c))
             question = false;
 
-        question |= c == '?';
+        question = question || c == '?';
     }
 
 
