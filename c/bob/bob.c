@@ -32,11 +32,11 @@ char *hey_bob(char *greeting) {
         return "Fine. Be that way!";
 
     bool yelling = contains_upper_case && !contains_lower_case;
-    if (question && !yelling)
+    if (question) {
+        if (yelling)
+            return "Calm down, I know what I'm doing!";
         return "Sure.";
-
-    if (question && yelling)
-        return "Calm down, I know what I'm doing!";
+    }
 
     if (yelling)
         return "Whoa, chill out!";
