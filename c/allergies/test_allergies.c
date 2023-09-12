@@ -212,8 +212,6 @@ static void test_allergic_to_everything_for_cats(void)
 
 static void test_no_allergies(void)
 {
-   TEST_IGNORE();
-
    allergen_list_t list = get_allergens(0);
    TEST_ASSERT_EQUAL(0, list.count);
 }
