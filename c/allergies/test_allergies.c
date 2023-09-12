@@ -218,8 +218,6 @@ static void test_no_allergies(void)
 
 static void test_just_eggs(void)
 {
-   TEST_IGNORE();
-
    allergen_list_t list = get_allergens(1);
    TEST_ASSERT_EQUAL(1, list.count);
    TEST_ASSERT_TRUE(list.allergens[ALLERGEN_EGGS]);

@@ -17,5 +17,6 @@ static allergen_list_t create_allergen_list() {
 allergen_list_t get_allergens(unsigned int score) {
     allergen_list_t result = create_allergen_list();
     result.count = score;
+    result.allergens[score & ALLERGEN_EGGS] = true;
     return result;
 }
