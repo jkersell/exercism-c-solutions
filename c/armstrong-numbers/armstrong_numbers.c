@@ -2,17 +2,8 @@
 
 #include <math.h>
 
-static int count_digits(int num) {
-    int count = 0;
-    while (num != 0) {
-        num /= 10;
-        count++;
-    }
-    return count;
-}
-
 bool is_armstrong_number(int candidate) {
-    int digit_count = count_digits(candidate);
+    int digit_count = log10(candidate) + 1;
     int total = 0;
     int reduced = candidate;
     while (reduced != 0) {
