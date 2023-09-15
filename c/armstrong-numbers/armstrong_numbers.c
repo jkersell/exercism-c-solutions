@@ -7,7 +7,11 @@ bool is_armstrong_number(int candidate) {
     int total = 0;
     int reduced = candidate;
     while (reduced != 0) {
-        total += pow(reduced % 10, digit_count);
+        int digit = reduced % 10;
+        int pow_total = 1;
+        for (int i = 0; i < digit_count; i++)
+            pow_total *= digit;
+        total += pow_total;
         reduced /= 10;
     }
     return total == candidate;
