@@ -2,17 +2,13 @@
 
 alphabet='abcdefghijklmnopqrstuvwxyz'
 
-abs() {
-    echo $(( $1 > 0 ? $1 : -$1 ))
-}
-
 translate_char() {
     if [[ "$1" =~ ^[0-9]$ ]]; then
         echo -n "$1"
         return 0
     fi
     alphabet_index=$(( $(printf '%d' "'$1") - 97 ))
-    cipher_index=$(abs $(( alphabet_index - 25 )))
+    cipher_index=$(( 25 - alphabet_index ))
     echo -n "${alphabet:$cipher_index:1}"
 }
 
