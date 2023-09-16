@@ -30,6 +30,12 @@ encode() {
     done
 }
 
+decode() {
+    for (( i=0; i<${#1}; i++ )); do
+        translate_char "${1:$i:1}"
+    done
+}
+
 main() {
     text=$(
         echo "$2" |
