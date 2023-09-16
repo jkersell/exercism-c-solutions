@@ -7,6 +7,10 @@ abs() {
 }
 
 translate_char() {
+    if [[ "$1" =~ ^[0-9]$ ]]; then
+        echo -n "$1"
+        return 0
+    fi
     for (( j=0; j<${#alphabet}; j++ )); do
         if [ ${alphabet:$j:1} != "$1" ]; then
             continue
