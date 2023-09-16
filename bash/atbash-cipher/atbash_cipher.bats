@@ -24,7 +24,6 @@ load bats-extra
 }
 
 @test "encode spaces" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "O M G"
   assert_success
   assert_output "lnt"
