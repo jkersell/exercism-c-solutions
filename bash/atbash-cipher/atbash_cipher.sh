@@ -28,11 +28,8 @@ decode() {
 }
 
 main() {
-    text=$(
-        echo "$2" |
-        tr '[:upper:]' '[:lower:]' |
-        tr --delete '[:space:][:punct:]'
-    )
+    text=${2//[[:space:][:punct:]]/}
+    text=${text@L}
     if [ "$1" == "encode" ]; then
         encode "$text"
     elif [ "$1" == "decode" ]; then
