@@ -6,14 +6,12 @@ load bats-extra
 # encode
 
 @test "encode yes" {
-  #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "yes"
   assert_success
   assert_output "bvh"
 }
 
 @test "encode no" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "no"
   assert_success
   assert_output "ml"

@@ -1,24 +1,36 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+alphabet='abcdefghijklmnopqrstuvwxyz'
+
+abs() {
+    echo $(( $1 > 0 ? $1 : -$1 ))
+}
+
+translate_char() {
+    for (( j=0; j<${#alphabet}; j++ )); do
+        if [ ${alphabet:$j:1} != "$1" ]; then
+            continue
+        fi
+        cipher_index=$(abs $(( j - 25 )))
+        echo -n "${alphabet:$cipher_index:1}"
+        return 0
+    done
+}
+
+encode() {
+    for (( i=0; i<${#1}; i++ )); do
+        translate_char "${1:$i:1}"
+    done
+}
+
+main() {
+    if [ "$1" == "encode" ]; then
+        encode "$2"
+    elif [ "$1" == "decode" ]; then
+        decode "$2"
+    else
+        echo "Unknown command: $1"
+    fi
+}
+
+main "$@"
