@@ -24,10 +24,11 @@ encode() {
 }
 
 main() {
+    text=$(echo -n "$2" | tr '[:upper:]' '[:lower:]')
     if [ "$1" == "encode" ]; then
-        encode "$2"
+        encode "$text"
     elif [ "$1" == "decode" ]; then
-        decode "$2"
+        decode "$text"
     else
         echo "Unknown command: $1"
     fi

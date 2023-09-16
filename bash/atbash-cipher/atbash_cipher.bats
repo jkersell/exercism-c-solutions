@@ -18,7 +18,6 @@ load bats-extra
 }
 
 @test "encode OMG" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "OMG"
   assert_success
   assert_output "lnt"
