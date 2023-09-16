@@ -11,14 +11,9 @@ translate_char() {
         echo -n "$1"
         return 0
     fi
-    for (( j=0; j<${#alphabet}; j++ )); do
-        if [ ${alphabet:$j:1} != "$1" ]; then
-            continue
-        fi
-        cipher_index=$(abs $(( j - 25 )))
-        echo -n "${alphabet:$cipher_index:1}"
-        return 0
-    done
+    alphabet_index=$(( $(printf '%d' "'$1") - 97 ))
+    cipher_index=$(abs $(( alphabet_index - 25 )))
+    echo -n "${alphabet:$cipher_index:1}"
 }
 
 encode() {
