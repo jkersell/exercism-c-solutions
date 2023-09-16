@@ -36,21 +36,18 @@ load bats-extra
 }
 
 @test "encode numbers" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "Testing,1 2 3, testing."
   assert_success
   assert_output "gvhgr mt123 gvhgr mt"
 }
 
 @test "encode deep thought" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "Truth is fiction."
   assert_success
   assert_output "gifgs rhurx grlm"
 }
 
 @test "encode all the letters" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "The quick brown fox jumps over the lazy dog."
   assert_success
   assert_output "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"

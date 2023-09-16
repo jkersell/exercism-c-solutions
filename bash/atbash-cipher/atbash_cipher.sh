@@ -31,7 +31,11 @@ encode() {
 }
 
 main() {
-    text=$(echo "$2" | tr '[:upper:]' '[:lower:]' | tr --delete '[:space:]')
+    text=$(
+        echo "$2" |
+        tr '[:upper:]' '[:lower:]' |
+        tr --delete '[:space:][:punct:]'
+    )
     if [ "$1" == "encode" ]; then
         encode "$text"
     elif [ "$1" == "decode" ]; then
