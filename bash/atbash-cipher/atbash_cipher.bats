@@ -30,7 +30,6 @@ load bats-extra
 }
 
 @test "encode mindblowingly" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash atbash_cipher.sh encode "mindblowingly"
   assert_success
   assert_output "nrmwy oldrm tob"

@@ -19,6 +19,9 @@ translate_char() {
 
 encode() {
     for (( i=0; i<${#1}; i++ )); do
+        if (( i > 0 && i % 5 == 0 )); then
+            echo -n " "
+        fi
         translate_char "${1:$i:1}"
     done
 }
