@@ -7,8 +7,8 @@ translate_char() {
         echo -n "$1"
         return 0
     fi
-    alphabet_index=$(( $(printf '%d' "'$1") - 97 ))
-    cipher_index=$(( 25 - alphabet_index ))
+    truncated_alphabet=${alphabet#*"$1"}
+    cipher_index=${#truncated_alphabet}
     echo -n "${alphabet:$cipher_index:1}"
 }
 
