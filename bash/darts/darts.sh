@@ -13,4 +13,10 @@ main() {
     fi
 }
 
+if [ "$#" != 2 ]; then
+    echo -e "Usage: darts.sh \e[4mX\e[0m \e[4mY\e[0m"
+    echo "Calculate the score for a single throw in a game of darts."
+    exit 1
+fi
+
 main "$@"

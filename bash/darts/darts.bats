@@ -84,14 +84,12 @@ load bats-extra
 # bash-specific test: Input validation
 
 @test "invalid args: no args" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash darts.sh
     assert_failure
     assert_output    # there is _some_ output
 }
 
 @test "invalid args: only 1 arg" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash darts.sh 10
     assert_failure
     assert_output    # there is _some_ output
