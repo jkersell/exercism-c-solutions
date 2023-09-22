@@ -19,4 +19,15 @@ if [ "$#" != 2 ]; then
     exit 1
 fi
 
+if [[ -z "${1//[![:digit:].]/}" ]]; then
+    echo "X must be numeric"
+    exit 1
+fi
+
+
+if [[ -z "${2//[![:digit:].]/}" ]]; then
+    echo "Y must be numeric"
+    exit 1
+fi
+
 main "$@"
