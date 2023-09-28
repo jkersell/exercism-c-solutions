@@ -4,14 +4,12 @@ load bats-extra
 # local version: 1.7.0.0
 
 @test "single digit strings can not be valid" {
-  #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "1"
   assert_success
   assert_output "false"
 }
 
 @test "a single zero is invalid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "0"
   assert_success
   assert_output "false"
