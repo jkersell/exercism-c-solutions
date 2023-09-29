@@ -16,14 +16,12 @@ load bats-extra
 }
 
 @test "a simple valid SIN that remains valid if reversed" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "059"
   assert_success
   assert_output "true"
 }
 
 @test "a simple valid SIN that becomes invalid if reversed" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "59"
   assert_success
   assert_output "true"
