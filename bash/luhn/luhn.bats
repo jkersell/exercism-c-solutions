@@ -88,56 +88,48 @@ load bats-extra
 }
 
 @test "single zero with space is invalid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh " 0"
   assert_success
   assert_output "false"
 }
 
 @test "more than a single zero is valid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "0000 0"
   assert_success
   assert_output "true"
 }
 
 @test "input digit 9 is correctly converted to output digit 9" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "091"
   assert_success
   assert_output "true"
 }
 
 @test "very long input is valid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "9999999999 9999999999 9999999999 9999999999"
   assert_success
   assert_output "true"
 }
 
 @test "valid luhn with an odd number of digits and non zero first digit" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "109"
   assert_success
   assert_output "true"
 }
 
 @test "using ascii value for non-doubled non-digit isn't allowed" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055b 444 285"
   assert_success
   assert_output "false"
 }
 
 @test "using ascii value for doubled non-digit isn't allowed" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh ":9"
   assert_success
   assert_output "false"
 }
 
 @test "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "59%59"
   assert_success
   assert_output "false"

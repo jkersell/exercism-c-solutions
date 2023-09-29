@@ -2,12 +2,13 @@
 
 main () {
     result="false"
-    if (( ${#1} <= 1 )); then
+
+    num=${1// /}
+
+    if (( ${#num} <= 1 )); then
         echo "$result"
         exit 0
     fi
-
-    num=${1// /}
 
     if [ -n "${num//[[:digit:]]/}" ]; then
         echo "$result"
