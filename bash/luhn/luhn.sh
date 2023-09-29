@@ -5,12 +5,7 @@ main () {
 
     num=${1// /}
 
-    if (( ${#num} <= 1 )); then
-        echo "$result"
-        exit 0
-    fi
-
-    if [ -n "${num//[[:digit:]]/}" ]; then
+    if (( ${#num} <= 1 )) || [ -n "${num//[[:digit:]]/}" ]; then
         echo "$result"
         exit 0
     fi
