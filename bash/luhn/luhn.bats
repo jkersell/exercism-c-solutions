@@ -28,70 +28,60 @@ load bats-extra
 }
 
 @test "a valid Canadian SIN" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055 444 285"
   assert_success
   assert_output "true"
 }
 
 @test "invalid Canadian SIN" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055 444 286"
   assert_success
   assert_output "false"
 }
 
 @test "invalid credit card" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "8273 1232 7352 0569"
   assert_success
   assert_output "false"
 }
 
 @test  "invalid long number with an even remainder" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "1 2345 6789 1234 5678 9012"
   assert_success
   assert_output "false"
 }
 
 @test  "invalid long number with a remainder divisible by 5" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "1 2345 6789 1234 5678 9013"
   assert_success
   assert_output "false"
 }
 
 @test "valid number with an even number of digits" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "095 245 88"
   assert_success
   assert_output "true"
 }
 
 @test "valid number with an odd number of spaces" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "234 567 891 234"
   assert_success
   assert_output "true"
 }
 
 @test "valid strings with a non-digit included become invalid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055a 444 285"
   assert_success
   assert_output "false"
 }
 
 @test "valid strings with punctuation included become invalid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055-444-285"
   assert_success
   assert_output "false"
 }
 
 @test "valid strings with symbols included become invalid" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash luhn.sh "055£ 444$ 285"
   assert_success
   assert_output "false"

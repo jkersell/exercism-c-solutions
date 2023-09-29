@@ -7,9 +7,16 @@ main () {
         exit 0
     fi
 
+    num=${1// /}
+
+    if [ -n "${num//[[:digit:]]/}" ]; then
+        echo "$result"
+        exit 0
+    fi
+
     sum=0
-    for (( i = 0; i < ${#1}; i++ )); do
-        digit="${1:$(( ${#1} - 1 - i )):1}"
+    for (( i = 0; i < ${#num}; i++ )); do
+        digit="${num:$(( ${#num} - 1 - i )):1}"
         if (( "$i" % 2 != 0 )); then
             digit=$(( "$digit" * 2 ))
         fi
