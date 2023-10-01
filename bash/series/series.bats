@@ -18,7 +18,6 @@ load bats-extra
 }
 
 @test "slices of two" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="35"
     run bash series.sh 35 2
     assert_success
@@ -26,7 +25,6 @@ load bats-extra
 }
 
 @test "slices of two overlap" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="91 14 42"
     run bash series.sh 9142 2
     assert_success
@@ -34,7 +32,6 @@ load bats-extra
 }
 
 @test "slices can include duplicates" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="777 777 777 777"
     run bash series.sh 777777 3
     assert_success
@@ -42,7 +39,6 @@ load bats-extra
 }
 
 @test "slices of a long series" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="91849 18493 84939 49390 93904 39042 90424 04243"
     run bash series.sh 918493904243 5
     assert_success
