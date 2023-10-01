@@ -46,7 +46,6 @@ load bats-extra
 }
 
 @test "slice length is too large" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="slice length cannot be greater than series length"
     run bash series.sh 12345 6
     assert_failure
@@ -54,7 +53,6 @@ load bats-extra
 }
 
 @test "slice length is way too large" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="slice length cannot be greater than series length"
     run bash series.sh 12345 42
     assert_failure
@@ -62,7 +60,6 @@ load bats-extra
 }
 
 @test "slice length cannot be zero" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="slice length cannot be zero"
     run bash series.sh 12345 0
     assert_failure
@@ -70,7 +67,6 @@ load bats-extra
 }
 
 @test "slice length cannot be negative" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="slice length cannot be negative"
     run bash series.sh 123 -1
     assert_failure
@@ -78,7 +74,6 @@ load bats-extra
 }
 
 @test "empty series is invalid" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="series cannot be empty"
     run bash series.sh "" 1
     assert_failure
