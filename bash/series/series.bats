@@ -4,7 +4,6 @@ load bats-extra
 # local version: 1.0.0.0
 
 @test "slices of one from one" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="1"
     run bash series.sh 1 1
     assert_success
@@ -12,7 +11,6 @@ load bats-extra
 }
 
 @test "slices of one from two" {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="1 2"
     run bash series.sh 12 1
     assert_success
