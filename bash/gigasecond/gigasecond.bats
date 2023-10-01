@@ -6,7 +6,6 @@ load bats-extra
 # Ensure your date calculations are done using UTC time zone
 
 @test 'date only specificaion of time' {
-  #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash gigasecond.sh '2011-04-25'
 
   assert_success
@@ -14,7 +13,6 @@ load bats-extra
 }
 
 @test 'second test for date only specification of time' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash gigasecond.sh '1977-06-13'
 
   assert_success
@@ -22,7 +20,6 @@ load bats-extra
 }
 
 @test 'third test for date only specification of time' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash gigasecond.sh '1959-07-19'
 
   assert_success
@@ -30,7 +27,6 @@ load bats-extra
 }
 
 @test 'full time specified' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash gigasecond.sh '2015-01-24T22:00:00'
 
   assert_success
@@ -38,7 +34,6 @@ load bats-extra
 }
 
 @test 'full time with day roll-over' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash gigasecond.sh '2015-01-24T23:59:59'
 
   assert_success
