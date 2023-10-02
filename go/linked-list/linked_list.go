@@ -1,18 +1,40 @@
 package linkedlist
 
-// Define List and Node types here.
-// Note: The tests expect Node type to include an exported field with name Value to pass.
+type List struct {
+	Head *Node
+	Tail *Node
+}
+
+type Node struct {
+	prev *Node
+	next *Node
+	Value interface{}
+}
 
 func NewList(elements ...interface{}) *List {
-	panic("Please implement the NewList function")
+	list := List{}
+	var currentNode *Node
+	for _, e := range elements {
+		nextNode := &Node{Value: e}
+		if list.Head == nil {
+			list.Head = nextNode
+			currentNode = list.Head
+		} else if currentNode.next == nil {
+			currentNode.next = nextNode
+			nextNode.prev = currentNode
+			currentNode = currentNode.next
+		}
+		list.Tail = currentNode
+	}
+	return &list
 }
 
 func (n *Node) Next() *Node {
-	panic("Please implement the Next function")
+	return n.next
 }
 
 func (n *Node) Prev() *Node {
-	panic("Please implement the Prev function")
+	return n.prev
 }
 
 func (l *List) Unshift(v interface{}) {
@@ -36,9 +58,9 @@ func (l *List) Reverse() {
 }
 
 func (l *List) First() *Node {
-	panic("Please implement the First function")
+	return l.Head
 }
 
 func (l *List) Last() *Node {
-	panic("Please implement the Last function")
+	return l.Tail
 }
