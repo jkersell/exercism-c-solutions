@@ -1,5 +1,9 @@
 package linkedlist
 
+import (
+	"errors"
+)
+
 type List struct {
 	Head *Node
 	Tail *Node
@@ -38,19 +42,55 @@ func (n *Node) Prev() *Node {
 }
 
 func (l *List) Unshift(v interface{}) {
-	panic("Please implement the Unshift function")
+	newNode := &Node{Value: v}
+	if l.Head != nil {
+		newNode.next = l.Head
+		l.Head.prev = newNode
+	}
+	l.Head = newNode
+	if l.Tail == nil {
+		l.Tail = newNode
+	}
 }
 
 func (l *List) Push(v interface{}) {
-	panic("Please implement the Push function")
+	newNode := &Node{Value: v}
+	if l.Tail != nil {
+		newNode.prev = l.Tail
+		l.Tail.next = newNode
+	}
+	l.Tail = newNode
+	if l.Head == nil {
+		l.Head = newNode
+	}
 }
 
 func (l *List) Shift() (interface{}, error) {
-	panic("Please implement the Shift function")
+	if l.Head == nil {
+		return nil, errors.New("Cannot shift an empty list")
+	}
+	result := l.Head.Value
+	l.Head = l.Head.next
+	if l.Head != nil {
+		l.Head.prev = nil
+	} else {
+		l.Tail = l.Head
+	}
+	return result, nil
 }
 
 func (l *List) Pop() (interface{}, error) {
-	panic("Please implement the Pop function")
+	if l.Tail == nil {
+		return nil, errors.New("Cannot pop from an empty list")
+	}
+	result := l.Tail.Value
+	l.Tail = l.Tail.prev
+	if l.Tail != nil {
+		l.Tail.next = nil
+	} else {
+		l.Head = l.Tail
+	}
+	return result, nil
 }
 
 func (l *List) Reverse() {
