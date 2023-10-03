@@ -17,18 +17,8 @@ type Node struct {
 
 func NewList(elements ...interface{}) *List {
 	list := List{}
-	var currentNode *Node
 	for _, e := range elements {
-		nextNode := &Node{Value: e}
-		if list.head == nil {
-			list.head = nextNode
-			currentNode = list.head
-		} else if currentNode.next == nil {
-			currentNode.next = nextNode
-			nextNode.prev = currentNode
-			currentNode = currentNode.next
-		}
-		list.tail = currentNode
+		list.Push(e)
 	}
 	return &list
 }
