@@ -71,10 +71,11 @@ func (l *List) Shift() (interface{}, error) {
 		return result, nil
 	}
 
-	result := l.head.Value
-	l.head = l.head.next
+	unlinkedNode := l.head
+	l.head = unlinkedNode.next
+	unlinkedNode.next = nil
 	l.head.prev = nil
-	return result, nil
+	return unlinkedNode.Value, nil
 }
 
 func (l *List) Pop() (interface{}, error) {
@@ -89,10 +90,11 @@ func (l *List) Pop() (interface{}, error) {
 		return result, nil
 	}
 
-	result := l.tail.Value
-	l.tail = l.tail.prev
+	unlinkedNode := l.tail
+	l.tail = unlinkedNode.prev
+	unlinkedNode.prev = nil
 	l.tail.next = nil
-	return result, nil
+	return unlinkedNode.Value, nil
 }
 
 func (l *List) Reverse() {
