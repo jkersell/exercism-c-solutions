@@ -1,13 +1,8 @@
 package secret
 
-var actions = []string{
-	"wink",
-	"double blink",
-	"close your eyes",
-	"jump",
-}
 
 func Handshake(code uint) []string {
+	var actions = []string{"wink", "double blink", "close your eyes", "jump"}
 	var result []string
 
 	start, stop, increment := 0, 4, 1
