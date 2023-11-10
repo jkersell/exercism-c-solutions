@@ -4,15 +4,15 @@
   (/
     (*
       n
-      (+ n 1)
-      (+ (* 2 n) 1))
+      (inc n)
+      (inc (* 2 n)))
     6)
 )
 
 (defn square-of-sum [n]
   (let
     [sum (/
-           (* n (+ n 1))
+           (* n (inc n))
            2)]
     (* sum sum))
 )
