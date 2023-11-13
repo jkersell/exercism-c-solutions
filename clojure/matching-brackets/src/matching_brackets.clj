@@ -6,7 +6,8 @@
       (reduce
         (fn [acc c]
           (case c
-            \[ (conj acc c)
-            \] (pop acc)))
+            (\[ \{) (conj acc c)
+            \]      (if (= \[ (peek acc)) (pop acc) (reduced (conj acc c)))
+            \}      (if (= \{ (peek acc)) (pop acc) (reduced (conj acc c)))))
         openings
         (seq text)))))
