@@ -9,7 +9,24 @@
   ;;                  is unsigned.
   ;;
   (func $square (export "square") (param $squareNum i32) (result i64)
-    (i64.const 42)
+    local.get $squareNum
+    i32.const 1
+    i32.lt_s
+    if
+      i64.const 0
+      return
+    end
+
+    local.get $squareNum
+    i32.const 64
+    i32.gt_u
+    if
+      i64.const 0
+      return
+    end
+
+    i64.const 1
+    return
   )
 
   ;;

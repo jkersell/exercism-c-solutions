@@ -73,19 +73,19 @@ describe("Grains", () => {
       expect(resultUnsigned).toEqual(9223372036854775808n);
     });
 
-    xtest("square 0 has no value", () => {
+    test("square 0 has no value", () => {
       let resultSigned = currentInstance.exports.square(0);
       let resultUnsigned = BigInt.asUintN(64, resultSigned);
       expect(resultUnsigned).toEqual(0n);
     });
 
-    xtest("negative square has no value", () => {
+    test("negative square has no value", () => {
       let resultSigned = currentInstance.exports.square(-1);
       let resultUnsigned = BigInt.asUintN(64, resultSigned);
       expect(resultUnsigned).toEqual(0n);
     });
 
-    xtest("square greater than 64 has no value", () => {
+    test("square greater than 64 has no value", () => {
       let resultSigned = currentInstance.exports.square(65);
       let resultUnsigned = BigInt.asUintN(64, resultSigned);
       expect(resultUnsigned).toEqual(0n);
