@@ -63,6 +63,35 @@
   ;;                  The result is unsigned.
   ;;
   (func (export "total") (result i64)
-    (i64.const 42)
+    (local $squares i32)
+    (local $total i64)
+    (local $grainsOnSquare i64)
+
+    (local.set $grainsOnSquare (i64.const 1))
+
+    (local.set $squares (i32.const 64))
+    loop $count
+      local.get $total
+      local.get $grainsOnSquare
+      i64.add
+      local.set $total
+
+      local.get $grainsOnSquare
+      i64.const 2
+      i64.mul
+      local.set $grainsOnSquare
+
+      local.get $squares
+      i32.const 1
+      i32.sub
+      local.tee $squares
+
+      i32.const 0
+      i32.gt_u
+      br_if $count
+    end
+
+    local.get $total
+    return
   )
 )

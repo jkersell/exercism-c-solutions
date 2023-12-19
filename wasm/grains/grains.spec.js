@@ -92,7 +92,7 @@ describe("Grains", () => {
     });
   });
 
-  xtest("returns the total number of grains on the board", () => {
+  test("returns the total number of grains on the board", () => {
     let resultSigned = currentInstance.exports.total();
     let resultUnsigned = BigInt.asUintN(64, resultSigned);
     expect(resultUnsigned).toEqual(18446744073709551615n);
