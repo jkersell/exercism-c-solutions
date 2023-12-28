@@ -9,8 +9,6 @@
   ;;                  is unsigned.
   ;;
   (func $square (export "square") (param $squareNum i32) (result i64)
-    (local $result i64)
-
     local.get $squareNum
     i32.const 1
     i32.lt_s
@@ -27,33 +25,7 @@
       return
     end
 
-    local.get $squareNum
-    i32.const 1
-    i32.eq
-    if
-      i64.const 1
-      return
-    end
-
-    (local.set $result (i64.const 1))
-    loop $sq
-      local.get $result
-      i64.const 2
-      i64.mul
-      local.set $result
-
-      local.get $squareNum
-      i32.const 1
-      i32.sub
-      local.tee $squareNum
-
-      i32.const 1
-      i32.gt_u
-      br_if $sq
-    end
-
-    local.get $result
-    return
+    (i64.shl (i64.const 1) (i64.extend_i32_u (i32.sub (local.get $squareNum) (i32.const 1))))
   )
 
   ;;
