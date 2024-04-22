@@ -31,4 +31,48 @@
   (func (export "colorCode") (param $offset i32) (param $len i32) (result i32)
     (return (i32.const -1))
   )
+
+  ;;
+  ;; Compare two strings by comparing characters until a difference is found or until
+  ;; the length is reached.
+  ;;
+  ;; @param {i32} lhs - the offset of one of the strings to be compared
+  ;; @param {i32} rhs - the offset of one of the strings to be compared
+  ;; @param {i32} length - the length of string to be compared
+  ;;
+  ;; @returns {i32} - the result is negative if the first value to differ is less in
+  ;;                  lhs, 0 if both strings are equal, and positive if the first value
+  ;;                  to differ is greater in lhs
+  ;;
+  (func $strcmp (export "strcmp") (param $lhs i32) (param $rhs i32) (param $len i32) (result i32)
+    (local $cmp i32)
+    (local $idx i32)
+    (local.set $idx (i32.const 0))
+
+    (if (i32.eq (i32.const 0) (local.get $len)) (then
+      (return (i32.const 0))
+    ))
+
+    (loop $char_cmp
+      ;; If we've compared characters up to the specified length then the strings are
+      ;; equal
+      (if (i32.eq (local.get $idx) (i32.sub (local.get $len) (i32.const 1))) (then
+        (return (i32.const 0))
+      ))
+
+      ;; Compare this pair of characters by subtracting them
+      (local.set $cmp
+        (i32.sub (i32.load8_u (local.get $lhs)) (i32.load8_u (local.get $rhs)))
+      )
+
+      ;; If the characters are equal then move to the next pair and increment the index
+      (if (i32.eq (i32.const 0) (local.get $cmp)) (then
+        (local.set $lhs (i32.add (i32.const 1) (local.get $lhs)))
+        (local.set $rhs (i32.add (i32.const 1) (local.get $rhs)))
+        (local.set $idx (i32.add (i32.const 1) (local.get $idx)))
+        (br $char_cmp)
+      ))
+    )
+    (return (local.get $cmp))
+  )
 )
