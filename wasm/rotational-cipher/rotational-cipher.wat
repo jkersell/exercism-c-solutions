@@ -16,7 +16,11 @@
         (i32.add (local.get $shiftKey) (i32.const 26)
         )
       )
-    ))
+    ) (else (if (i32.gt_s (local.get $shiftKey) (i32.const 25)) (then
+      (local.set $shiftKey
+        (i32.rem_s (local.get $shiftKey) (i32.const 26))
+      )
+    ))))
     (i32.store8
       (local.get $textOffset)
       (i32.add (local.get $shiftKey) (i32.load8_u (local.get $textOffset)))
