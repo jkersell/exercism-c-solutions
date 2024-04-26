@@ -1,6 +1,7 @@
 (module
   (memory (export "mem") 1)
 
+  (data (i32.const 250) "\c0\c6\cc\d0\d7\de\e4\e9\f0\f5")
   (data (i32.const 192) "black,brown,red,orange,yellow,green,blue,violet,grey,white")
   ;;
   ;; Return buffer of comma separated colors
@@ -29,7 +30,24 @@
   ;; @returns {i32} - the associated value
   ;;
   (func (export "colorCode") (param $offset i32) (param $len i32) (result i32)
-    (return (i32.const -1))
+    (local $color_offset i32)
+    (local $idx i32)
+    (local.set $idx (i32.const 0))
+
+    (loop $array_iter
+      (if (i32.ne
+        (i32.const 0)
+        (call $strcmp
+          (local.get $offset)
+          (i32.load8_u (i32.add (i32.const 250) (local.get $idx)))
+          (local.get $len)
+        )
+      ) (then
+        (local.set $idx (i32.add (i32.const 1) (local.get $idx)))
+        (br $array_iter)
+      ))
+    )
+    (return (local.get $idx))
   )
 
   ;;
