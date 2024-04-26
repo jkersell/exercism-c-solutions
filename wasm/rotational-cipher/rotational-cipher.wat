@@ -11,6 +11,12 @@
   ;; @returns {(i32,i32)} - The offset and length of the ciphertext output in linear memory.
   ;;
   (func (export "rotate") (param $textOffset i32) (param $textLength i32) (param $shiftKey i32) (result i32 i32)
+    (if (i32.lt_s (local.get $shiftKey) (i32.const 0)) (then
+      (local.set $shiftKey
+        (i32.add (local.get $shiftKey) (i32.const 26)
+        )
+      )
+    ))
     (i32.store8
       (local.get $textOffset)
       (i32.add (local.get $shiftKey) (i32.load8_u (local.get $textOffset)))

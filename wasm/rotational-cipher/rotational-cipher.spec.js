@@ -61,6 +61,10 @@ describe("Rotational Cipher", () => {
     expect(rotate("a", 1)).toEqual("b");
   });
 
+  test("rotate a by -1", () => {
+    expect(rotate("a", -1)).toEqual("z");
+  });
+
   xtest("rotate a by 26, same output as input", () => {
     expect(rotate("a", 26)).toEqual("a");
   });
