@@ -11,25 +11,54 @@
   ;; @returns {(i32,i32)} - The offset and length of the ciphertext output in linear memory.
   ;;
   (func (export "rotate") (param $textOffset i32) (param $textLength i32) (param $shiftKey i32) (result i32 i32)
-    (if (i32.lt_s (local.get $shiftKey) (i32.const 0)) (then
-      (local.set $shiftKey
+    (local $asciiOffset i32)
+    (local $char i32)
+
+    (local.set $char (i32.load8_u (local.get $textOffset)))
+
+    (if (i32.and 
+      (i32.ge_u (local.get $char) (i32.const 65))
+      (i32.le_u (local.get $char) (i32.const 90))
+    ) (then
+      (local.set $asciiOffset (i32.const 65))
+    ) (else (if (i32.and 
+      (i32.ge_u (local.get $char) (i32.const 97))
+      (i32.le_u (local.get $char) (i32.const 122))
+    ) (then
+      (local.set $asciiOffset (i32.const 97))
+    ) (else
+      (return (i32.const -1) (i32.const -1))
+    ))))
+
+    ;; Translate the char into the range [0,25]
+    (local.set $char (i32.sub (local.get $char) (local.get $asciiOffset)))
+
+    ;; Apply the rotation
+    (local.set $char
+      (i32.add (local.get $shiftKey) (local.get $char))
+    )
+
+    ;; Bring the char back into the correct range if it's negative
+    (if (i32.lt_s (local.get $char) (i32.const 0)) (then
+      (local.set $char
         (i32.add
-          (i32.rem_s (local.get $shiftKey) (i32.const 26))
+          (i32.rem_s (local.get $char) (i32.const 26))
           (i32.const 26)
         )
       )
     ))
 
-    (if (i32.gt_s (local.get $shiftKey) (i32.const 25)) (then
-      (local.set $shiftKey
-        (i32.rem_s (local.get $shiftKey) (i32.const 26))
+    ;; Bring the char back into the correct range if it's positive
+    (if (i32.gt_s (local.get $char) (i32.const 25)) (then
+      (local.set $char
+        (i32.rem_s (local.get $char) (i32.const 26))
       )
     ))
 
-    (i32.store8
-      (local.get $textOffset)
-      (i32.add (local.get $shiftKey) (i32.load8_u (local.get $textOffset)))
-    )
+    ;; Translate the char back to the original ASCII range
+    (local.set $char (i32.add (local.get $char) (local.get $asciiOffset)))
+
+    (i32.store8 (local.get $textOffset) (local.get $char))
     (return (local.get $textOffset) (local.get $textLength))
   )
 )

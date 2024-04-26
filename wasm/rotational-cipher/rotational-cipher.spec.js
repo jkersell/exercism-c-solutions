@@ -77,11 +77,11 @@ describe("Rotational Cipher", () => {
     expect(rotate("a", -27)).toEqual("z");
   });
 
-  xtest("rotate m by 13", () => {
+  test("rotate m by 13", () => {
     expect(rotate("m", 13)).toEqual("z");
   });
 
-  xtest("rotate n by 13 with wrap around alphabet", () => {
+  test("rotate n by 13 with wrap around alphabet", () => {
     expect(rotate("n", 13)).toEqual("a");
   });
 
