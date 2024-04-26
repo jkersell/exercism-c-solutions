@@ -14,14 +14,6 @@
   )
 
   ;;
-  ;; Initialization function called each time a module is initialized
-  ;; Can be used to populate globals similar to a constructor
-  ;; Can be deleted if not needed
-  ;;
-  (func $initialize)
-  (start $initialize)
-
-  ;;
   ;; Given a valid resistor color, returns the associated value
   ;;
   ;; @param {i32} offset - offset into the color buffer
