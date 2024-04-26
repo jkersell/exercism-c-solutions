@@ -85,7 +85,7 @@ describe("Rotational Cipher", () => {
     expect(rotate("n", 13)).toEqual("a");
   });
 
-  xtest("rotate capital letters", () => {
+  test("rotate capital letters", () => {
     expect(rotate("OMG", 5)).toEqual("TRL");
   });
 
