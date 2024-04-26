@@ -13,14 +13,19 @@
   (func (export "rotate") (param $textOffset i32) (param $textLength i32) (param $shiftKey i32) (result i32 i32)
     (if (i32.lt_s (local.get $shiftKey) (i32.const 0)) (then
       (local.set $shiftKey
-        (i32.add (local.get $shiftKey) (i32.const 26)
+        (i32.add
+          (i32.rem_s (local.get $shiftKey) (i32.const 26))
+          (i32.const 26)
         )
       )
-    ) (else (if (i32.gt_s (local.get $shiftKey) (i32.const 25)) (then
+    ))
+
+    (if (i32.gt_s (local.get $shiftKey) (i32.const 25)) (then
       (local.set $shiftKey
         (i32.rem_s (local.get $shiftKey) (i32.const 26))
       )
-    ))))
+    ))
+
     (i32.store8
       (local.get $textOffset)
       (i32.add (local.get $shiftKey) (i32.load8_u (local.get $textOffset)))
