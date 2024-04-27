@@ -89,19 +89,19 @@ describe("Rotational Cipher", () => {
     expect(rotate("OMG", 5)).toEqual("TRL");
   });
 
-  xtest("rotate spaces", () => {
+  test("rotate spaces", () => {
     expect(rotate("O M G", 5)).toEqual("T R L");
   });
 
-  xtest("rotate numbers", () => {
+  test("rotate numbers", () => {
     expect(rotate("Testing 1 2 3 testing", 4)).toEqual("Xiwxmrk 1 2 3 xiwxmrk");
   });
 
-  xtest("rotate punctuation", () => {
+  test("rotate punctuation", () => {
     expect(rotate("Let's eat, Grandma!", 21)).toEqual("Gzo'n zvo, Bmviyhv!");
   });
 
-  xtest("rotate all letters", () => {
+  test("rotate all letters", () => {
     expect(rotate("The quick brown fox jumps over the lazy dog.", 13)).toEqual(
       "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
     );

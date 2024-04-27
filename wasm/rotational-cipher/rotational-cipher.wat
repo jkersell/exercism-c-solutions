@@ -22,53 +22,55 @@
       (local.set $charOffset (i32.add (local.get $textOffset) (local.get $idx)))
       (local.set $char (i32.load8_u (local.get $charOffset)))
 
-      (if (i32.and 
-        (i32.ge_u (local.get $char) (i32.const 65))
-        (i32.le_u (local.get $char) (i32.const 90))
-      ) (then
-        (local.set $asciiOffset (i32.const 65))
-      ) (else (if (i32.and 
-        (i32.ge_u (local.get $char) (i32.const 97))
-        (i32.le_u (local.get $char) (i32.const 122))
-      ) (then
-        (local.set $asciiOffset (i32.const 97))
-      ) (else
-        (return (i32.const -1) (i32.const -1))
-      ))))
+      (block $processAlpha
+        (if (i32.and 
+          (i32.ge_u (local.get $char) (i32.const 65))
+          (i32.le_u (local.get $char) (i32.const 90))
+        ) (then
+          (local.set $asciiOffset (i32.const 65))
+        ) (else (if (i32.and 
+          (i32.ge_u (local.get $char) (i32.const 97))
+          (i32.le_u (local.get $char) (i32.const 122))
+        ) (then
+          (local.set $asciiOffset (i32.const 97))
+        ) (else
+          (br $processAlpha)
+        ))))
   
-      ;; Translate the char into the range [0,25]
-      (local.set $char (i32.sub (local.get $char) (local.get $asciiOffset)))
+        ;; Translate the char into the range [0,25]
+        (local.set $char (i32.sub (local.get $char) (local.get $asciiOffset)))
 
-      ;; Apply the rotation
-      (local.set $char
-        (i32.add (local.get $shiftKey) (local.get $char))
-      )
-
-      ;; Bring the char back into the correct range if it's negative
-      (if (i32.lt_s (local.get $char) (i32.const 0)) (then
+        ;; Apply the rotation
         (local.set $char
-          (i32.add
-            (i32.rem_s (local.get $char) (i32.const 26))
-            (i32.const 26)
-          )
+          (i32.add (local.get $shiftKey) (local.get $char))
         )
-      ))
 
-      ;; Bring the char back into the correct range if it's positive
-      (if (i32.gt_s (local.get $char) (i32.const 25)) (then
-        (local.set $char
-          (i32.rem_s (local.get $char) (i32.const 26))
-      )
-      ))
+        ;; Bring the char back into the correct range if it's negative
+        (if (i32.lt_s (local.get $char) (i32.const 0)) (then
+          (local.set $char
+            (i32.add
+              (i32.rem_s (local.get $char) (i32.const 26))
+              (i32.const 26)
+            )
+          )
+        ))
 
-      ;; Translate the char back to the original ASCII range
-      (local.set $char (i32.add (local.get $char) (local.get $asciiOffset)))
+        ;; Bring the char back into the correct range if it's positive
+        (if (i32.gt_s (local.get $char) (i32.const 25)) (then
+          (local.set $char
+            (i32.rem_s (local.get $char) (i32.const 26))
+        )
+        ))
 
-      (i32.store8 (local.get $charOffset) (local.get $char))
+        ;; Translate the char back to the original ASCII range
+        (local.set $char (i32.add (local.get $char) (local.get $asciiOffset)))
+
+        (i32.store8 (local.get $charOffset) (local.get $char))
+      ) ;; processAlpha
 
       (local.set $idx (i32.add (local.get $idx) (i32.const 1)))
       (br_if $applyRotation (i32.lt_u (local.get $idx) (local.get $textLength)))
-    )
+    ) ;; applyRotation
 
     (return (local.get $textOffset) (local.get $textLength))
   )
