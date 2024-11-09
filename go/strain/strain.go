@@ -4,7 +4,7 @@ func Keep[T any](items []T, filter func(T) bool) []T {
 	if items == nil {
 		return items
 	}
-	var result []T
+	result := make([]T, 0, len(items))
 	for _, entry := range items {
 		if filter(entry) {
 			result = append(result, entry)
