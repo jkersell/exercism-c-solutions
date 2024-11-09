@@ -11,11 +11,5 @@ func Keep[T any](items []T, filter func(T) bool) []T {
 }
 
 func Discard[T any](items []T, filter func(T) bool) []T {
-	var result []T
-	for _, entry := range items {
-		if !filter(entry) {
-			result = append(result, entry)
-		}
-	}
-	return result
+	return Keep(items, func(val T) bool { return !filter(val) })
 }
