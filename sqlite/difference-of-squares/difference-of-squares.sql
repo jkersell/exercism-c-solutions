@@ -9,4 +9,6 @@ UPDATE "difference-of-squares" SET result = CASE
     WHEN property = 'differenceOfSquares' THEN
         POW((number * (number + 1)) / 2, 2) -
         (number * (number + 1) * (2 * number + 1)) / 6
+    ELSE
+        NULL
 END
